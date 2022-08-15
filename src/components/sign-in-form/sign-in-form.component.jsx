@@ -1,5 +1,5 @@
 import FormInput from "../form-input/form-input.component";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Button from "../button/button.compenent";
 import {
   createUserDocumentFromAuth,
@@ -7,7 +7,6 @@ import {
   signInWithGooglePopup,
 } from "../../utils/firebase/firebase.utils";
 import "./sign-in-form.styles.scss";
-import { async } from "@firebase/util";
 
 const defaultSignInFormFields = {
   email: "",
@@ -24,7 +23,6 @@ const SignInForm = () => {
 
   const signInWithGoogle = async () => {
     const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
   };
 
   const handleChange = (event) => {
@@ -36,10 +34,13 @@ const SignInForm = () => {
     event.preventDefault();
     const { email, password } = signInFormFields;
     try {
-      const user = await signInAuthUserWithEmailAndPassword(email, password);
+      const { user } = await signInAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
       resetFormFields();
+      // setCurrentUser(user);
       console.log("Logged In Successfully");
-      console.log(user);
     } catch (error) {
       switch (error.code) {
         case "auth/wrong-password":
