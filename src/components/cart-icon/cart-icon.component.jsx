@@ -3,14 +3,13 @@ import { CartContext } from "../../contexts/cart.context";
 import "./cart-icon.styles.scss";
 import { useContext } from "react";
 
-const CartIcon = () => {
+function CartIcon() {
   const { isCartOpen, setIsCartOpen, cartItems } = useContext(CartContext);
 
   const totalQuantity = cartItems.reduce(
     (total, currItem) => total + currItem.quantity,
     0
   );
-
   const toggleIsCartDropDown = () => setIsCartOpen(!isCartOpen);
 
   return (
@@ -19,6 +18,6 @@ const CartIcon = () => {
       <span className="item-count">{totalQuantity}</span>
     </div>
   );
-};
+}
 
 export default CartIcon;
