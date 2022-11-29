@@ -77,10 +77,8 @@ export const CartProvider = ({ children }) => {
   };
 
   const updateCartItemsReducer = (newCartItems) => {
-    console.log(`updateCartItemsReducers newCartItems`)
-    console.log(newCartItems);
     let newCartCount, newCartTotal;
-    if(newCartItems) { 
+    if(!newCartItems) { 
       newCartCount = 0;
       newCartTotal = 0;
     }
